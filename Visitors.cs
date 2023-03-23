@@ -17,6 +17,7 @@ namespace KeeperPRO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Visitors()
         {
+            this.Applications = new HashSet<Applications>();
             this.Visits = new HashSet<Visits>();
             this.Data_Authorization = new HashSet<Data_Authorization>();
         }
@@ -31,6 +32,9 @@ namespace KeeperPRO
         public Nullable<int> Seria { get; set; }
         public Nullable<int> Number { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Applications> Applications { get; set; }
+        public virtual BlackList BlackList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Visits> Visits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -5,6 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище ATaran_KII_DemExModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="ID_Application" />
+          </Key>
+          <Property Name="ID_Application" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Visitors" Type="int" Nullable="false" />
+          <Property Name="ID_Group" Type="int" />
+          <Property Name="Start_Date" Type="date" Nullable="false" />
+          <Property Name="End_Date" Type="date" />
+          <Property Name="Target" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID_Division" Type="int" Nullable="false" />
+          <Property Name="ID_Employe_Division" Type="int" Nullable="false" />
+        </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "ATaran_KII_DemEx.dbo.Auth_User" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Auth_User">
@@ -14,6 +27,14 @@
           </Key>
           <Property Name="ID_Auth" Type="int" Nullable="false" />
           <Property Name="ID_User" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "ATaran_KII_DemEx.dbo.BlackList" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="BlackList">
+          <Key>
+            <PropertyRef Name="ID_Visitor" />
+          </Key>
+          <Property Name="ID_Visitor" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Data_Authorization">
           <Key>
@@ -86,10 +107,58 @@
           </Key>
           <Property Name="ID_Visit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Visitor" Type="int" Nullable="false" />
-          <Property Name="Date_Visit" Type="date" Nullable="false" />
+          <Property Name="Date_Visit" Type="date" />
           <Property Name="ID_Employee" Type="int" Nullable="false" />
           <Property Name="ID_Group" Type="int" />
         </EntityType>
+        <Association Name="FK_Applications_Division">
+          <End Role="Division" Type="Self.Division" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="ID_Division" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Employe_Division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="ID_Group" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Visitors">
+          <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Visitors" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Auth_User_Data_Authorization">
           <End Role="Data_Authorization" Type="Self.Data_Authorization" Multiplicity="1" />
           <End Role="Auth_User" Type="Self.Auth_User" Multiplicity="*" />
@@ -111,6 +180,18 @@
             </Principal>
             <Dependent Role="Auth_User">
               <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlackList_Visitors">
+          <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
+          <End Role="BlackList" Type="Self.BlackList" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="BlackList">
+              <PropertyRef Name="ID_Visitor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -175,6 +256,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище ATaran_KII_DemExModelContainer">
+          <EntitySet Name="Applications" EntityType="Self.Applications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Data_Authorization" EntityType="Self.Data_Authorization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departament" EntityType="Self.Departament" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
@@ -189,6 +271,27 @@
     [Auth_User].[ID_User] AS [ID_User]
     FROM [dbo].[Auth_User] AS [Auth_User]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="BlackList" EntityType="Self.BlackList" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BlackList].[ID_Visitor] AS [ID_Visitor]
+    FROM [dbo].[BlackList] AS [BlackList]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Applications_Division" Association="Self.FK_Applications_Division">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Employees" Association="Self.FK_Applications_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Groups" Association="Self.FK_Applications_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Visitors" Association="Self.FK_Applications_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
           <AssociationSet Name="FK_Auth_User_Data_Authorization" Association="Self.FK_Auth_User_Data_Authorization">
             <End Role="Data_Authorization" EntitySet="Data_Authorization" />
             <End Role="Auth_User" EntitySet="Auth_User" />
@@ -196,6 +299,10 @@
           <AssociationSet Name="FK_Auth_User_Visitors" Association="Self.FK_Auth_User_Visitors">
             <End Role="Visitors" EntitySet="Visitors" />
             <End Role="Auth_User" EntitySet="Auth_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlackList_Visitors" Association="Self.FK_BlackList_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="BlackList" EntitySet="BlackList" />
           </AssociationSet>
           <AssociationSet Name="FK_Employees_Departament" Association="Self.FK_Employees_Departament">
             <End Role="Departament" EntitySet="Departament" />
@@ -223,6 +330,23 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ATaran_KII_DemExModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="ID_Application" />
+          </Key>
+          <Property Name="ID_Application" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Visitors" Type="Int32" Nullable="false" />
+          <Property Name="ID_Group" Type="Int32" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="End_Date" Type="DateTime" Precision="0" />
+          <Property Name="Target" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Division" Type="Int32" Nullable="false" />
+          <Property Name="ID_Employe_Division" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Division" Relationship="Self.FK_Applications_Division" FromRole="Applications" ToRole="Division" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Applications_Employees" FromRole="Applications" ToRole="Employees" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Applications_Groups" FromRole="Applications" ToRole="Groups" />
+          <NavigationProperty Name="Visitors" Relationship="Self.FK_Applications_Visitors" FromRole="Applications" ToRole="Visitors" />
+        </EntityType>
         <EntityType Name="Data_Authorization">
           <Key>
             <PropertyRef Name="ID_Auth" />
@@ -246,6 +370,7 @@
           </Key>
           <Property Name="ID_Division" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name_Division" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK_Applications_Division" FromRole="Division" ToRole="Applications" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Division" FromRole="Division" ToRole="Employees" />
         </EntityType>
         <EntityType Name="Employees">
@@ -259,6 +384,7 @@
           <Property Name="ID_Division" Type="Int32" />
           <Property Name="ID_Departament" Type="Int32" />
           <Property Name="Code_Employee" Type="Int32" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK_Applications_Employees" FromRole="Employees" ToRole="Applications" />
           <NavigationProperty Name="Departament" Relationship="Self.FK_Employees_Departament" FromRole="Employees" ToRole="Departament" />
           <NavigationProperty Name="Division" Relationship="Self.FK_Employees_Division" FromRole="Employees" ToRole="Division" />
           <NavigationProperty Name="Visits" Relationship="Self.FK_Visits_Employees" FromRole="Employees" ToRole="Visits" />
@@ -269,6 +395,7 @@
           </Key>
           <Property Name="ID_Group" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameGroup" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK_Applications_Groups" FromRole="Groups" ToRole="Applications" />
           <NavigationProperty Name="Visits" Relationship="Self.FK_Visits_Groups" FromRole="Groups" ToRole="Visits" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -294,6 +421,8 @@
           <Property Name="Birthday" Type="DateTime" Precision="0" />
           <Property Name="Seria" Type="Int32" />
           <Property Name="Number" Type="Int32" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK_Applications_Visitors" FromRole="Visitors" ToRole="Applications" />
+          <NavigationProperty Name="BlackList" Relationship="Self.FK_BlackList_Visitors" FromRole="Visitors" ToRole="BlackList" />
           <NavigationProperty Name="Visits" Relationship="Self.FK_Visits_Visitors" FromRole="Visitors" ToRole="Visits" />
           <NavigationProperty Name="Data_Authorization" Relationship="Self.Auth_User" FromRole="Visitors" ToRole="Data_Authorization" />
         </EntityType>
@@ -303,13 +432,68 @@
           </Key>
           <Property Name="ID_Visit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_Visitor" Type="Int32" Nullable="false" />
-          <Property Name="Date_Visit" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_Visit" Type="DateTime" Precision="0" />
           <Property Name="ID_Employee" Type="Int32" Nullable="false" />
           <Property Name="ID_Group" Type="Int32" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Visits_Employees" FromRole="Visits" ToRole="Employees" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_Visits_Groups" FromRole="Visits" ToRole="Groups" />
           <NavigationProperty Name="Visitors" Relationship="Self.FK_Visits_Visitors" FromRole="Visits" ToRole="Visitors" />
         </EntityType>
+        <EntityType Name="BlackList">
+          <Key>
+            <PropertyRef Name="ID_Visitor" />
+          </Key>
+          <Property Name="ID_Visitor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Visitors" Relationship="Self.FK_BlackList_Visitors" FromRole="BlackList" ToRole="Visitors" />
+        </EntityType>
+        <Association Name="FK_Applications_Division">
+          <End Role="Division" Type="Self.Division" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="ID_Division" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Employe_Division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="ID_Group" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applications_Visitors">
+          <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="ID_Visitors" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employees_Departament">
           <End Role="Departament" Type="Self.Departament" Multiplicity="0..1" />
           <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
@@ -358,6 +542,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BlackList_Visitors">
+          <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
+          <End Role="BlackList" Type="Self.BlackList" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Visitors">
+              <PropertyRef Name="ID_Visitor" />
+            </Principal>
+            <Dependent Role="BlackList">
+              <PropertyRef Name="ID_Visitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Visits_Visitors">
           <End Role="Visitors" Type="Self.Visitors" Multiplicity="1" />
           <End Role="Visits" Type="Self.Visits" Multiplicity="*" />
@@ -375,6 +571,7 @@
           <End Role="Visitors" Type="Self.Visitors" Multiplicity="*" />
         </Association>
         <EntityContainer Name="ATaran_KII_DemExEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Applications" EntityType="Self.Applications" />
           <EntitySet Name="Data_Authorization" EntityType="Self.Data_Authorization" />
           <EntitySet Name="Departament" EntityType="Self.Departament" />
           <EntitySet Name="Division" EntityType="Self.Division" />
@@ -383,6 +580,23 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Visitors" EntityType="Self.Visitors" />
           <EntitySet Name="Visits" EntityType="Self.Visits" />
+          <EntitySet Name="BlackList" EntityType="Self.BlackList" />
+          <AssociationSet Name="FK_Applications_Division" Association="Self.FK_Applications_Division">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Employees" Association="Self.FK_Applications_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Groups" Association="Self.FK_Applications_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applications_Visitors" Association="Self.FK_Applications_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employees_Departament" Association="Self.FK_Employees_Departament">
             <End Role="Departament" EntitySet="Departament" />
             <End Role="Employees" EntitySet="Employees" />
@@ -399,6 +613,10 @@
             <End Role="Groups" EntitySet="Groups" />
             <End Role="Visits" EntitySet="Visits" />
           </AssociationSet>
+          <AssociationSet Name="FK_BlackList_Visitors" Association="Self.FK_BlackList_Visitors">
+            <End Role="Visitors" EntitySet="Visitors" />
+            <End Role="BlackList" EntitySet="BlackList" />
+          </AssociationSet>
           <AssociationSet Name="FK_Visits_Visitors" Association="Self.FK_Visits_Visitors">
             <End Role="Visitors" EntitySet="Visitors" />
             <End Role="Visits" EntitySet="Visits" />
@@ -414,6 +632,20 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище ATaran_KII_DemExModelContainer" CdmEntityContainer="ATaran_KII_DemExEntities">
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Applications">
+              <MappingFragment StoreEntitySet="Applications">
+                <ScalarProperty Name="ID_Application" ColumnName="ID_Application" />
+                <ScalarProperty Name="ID_Visitors" ColumnName="ID_Visitors" />
+                <ScalarProperty Name="ID_Group" ColumnName="ID_Group" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Target" ColumnName="Target" />
+                <ScalarProperty Name="ID_Division" ColumnName="ID_Division" />
+                <ScalarProperty Name="ID_Employe_Division" ColumnName="ID_Employe_Division" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Data_Authorization">
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Data_Authorization">
               <MappingFragment StoreEntitySet="Data_Authorization">
@@ -494,6 +726,13 @@
                 <ScalarProperty Name="Date_Visit" ColumnName="Date_Visit" />
                 <ScalarProperty Name="ID_Employee" ColumnName="ID_Employee" />
                 <ScalarProperty Name="ID_Group" ColumnName="ID_Group" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlackList">
+            <EntityTypeMapping TypeName="ATaran_KII_DemExModel.BlackList">
+              <MappingFragment StoreEntitySet="BlackList">
+                <ScalarProperty Name="ID_Visitor" ColumnName="ID_Visitor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

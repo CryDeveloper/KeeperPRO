@@ -4,19 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c5fba71dbcb34a2083200327bf8ac691" Name="Diagram1">
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Data_Authorization" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Departament" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Division" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Employees" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Groups" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visitors" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visits" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+      <Diagram DiagramId="b8be739b2b084f69b69a7245735e9882" Name="Diagram1">
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Applications" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Data_Authorization" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Departament" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Division" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Employees" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Groups" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visitors" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Visits" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.BlackList" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Applications_Division" ManuallyRouted="false" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Applications_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Applications_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Applications_Visitors" ManuallyRouted="false" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Employees_Departament" ManuallyRouted="false" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Employees_Division" ManuallyRouted="false" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_BlackList_Visitors" ManuallyRouted="false" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Visitors" ManuallyRouted="false" />
         <AssociationConnector Association="ATaran_KII_DemExModel.Auth_User" ManuallyRouted="false" />
       </Diagram>
