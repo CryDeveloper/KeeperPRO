@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:KeeperPRO"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="HeadingText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        
     </Application.Resources>
 </Application>

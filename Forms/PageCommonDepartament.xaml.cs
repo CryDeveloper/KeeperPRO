@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace KeeperPRO.Forms
 {
     /// <summary>
-    /// Логика взаимодействия для CommonDepartament.xaml
+    /// Логика взаимодействия для PageCommonDepartament.xaml
     /// </summary>
-    public partial class CommonDepartament : Page
+    public partial class PageCommonDepartament : Page
     {
-        public CommonDepartament()
+        public PageCommonDepartament()
         {
             InitializeComponent();
         }

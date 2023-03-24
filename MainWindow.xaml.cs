@@ -21,10 +21,51 @@ namespace KeeperPRO
     /// </summary>
     public partial class MainWindow : Window
     {
+        ATaran_KII_DemExEntities entities;
+        List<Employees> listEmployees;
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new AuthorizationPage());
+            entities = new ATaran_KII_DemExEntities();
+            listEmployees = entities.Employees.ToList();
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            int code = -1;
+            try
+            {
+                code = Convert.ToInt32(tbCodeEmployee.Text);
+            }
+            catch (Exception exc)
+            {
+                exc = new Exception("Проблема при преобразовании кода");
+            }
+            Employees employees = entities.Employees.FirstOrDefault(x => x.Code_Employee == code); //для проверки есть ли значение в списке
+            //есть еще where, который как select
+            if (employees != null)
+            {
+                Departament commonDepartament = entities.Departament.FirstOrDefault(x => x.Name_Departament == "Общий отдел");
+                Departament securityDepartament = entities.Departament.FirstOrDefault(x => x.Name_Departament == "Охрана");
+                if (employees.ID_Departament == commonDepartament.ID_Departament)
+                {
+                    MainFrame.Navigate(new pgCommonDepartament());
+                }
+                else if (employees.ID_Departament == securityDepartament.ID_Departament)
+                {
+                    MessageBox.Show("Охрана");
+                }
+                else
+                {
+                    MessageBox.Show("Для такого сотрудника доступа нет");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Неверный код");
+            }
         }
     }
 }
