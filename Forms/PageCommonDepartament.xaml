@@ -21,10 +21,10 @@
                             <TextBlock Text="Телефон"/>
                         </StackPanel>
                         <StackPanel Margin="10">
-                            <TextBlock Text="Срок действия заявки"/>
-                            <TextBlock Text="Заявитель"/>
-                            <TextBlock Text="Цель посещения"/>
-                            <TextBlock Text="Телефон"/>
+                            <TextBlock Text="{Binding DiscountApplication}"/>
+                            <TextBlock Text="{Binding FullName}"/>
+                            <TextBlock Text="{Binding Target}"/>
+                            <TextBlock Text="{Binding FullName}"/>
                         </StackPanel>
                         <StackPanel Margin="10">
                             <TextBlock Text="Почта"/>
@@ -33,10 +33,10 @@
                             <TextBlock Text="Паспортные данные:"/>
                         </StackPanel>
                         <StackPanel Margin="10">
-                            <TextBlock Text="Почта"/>
-                            <TextBlock Text="Организация"/>
-                            <TextBlock Text="Дата рождения"/>
-                            <TextBlock Text="Паспортные данные:"/>
+                            <TextBlock Text="{Binding FullName}"/>
+                            <TextBlock Text="{Binding FullName}"/>
+                            <TextBlock Text="{Binding FullName}"/>
+                            <TextBlock Text="{Binding FullName}"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
