@@ -71,6 +71,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\Applications.cs" />
+    <Compile Include="Classes\Visitors.cs" />
     <Compile Include="Data_Authorization.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

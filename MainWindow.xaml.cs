@@ -51,7 +51,7 @@ namespace KeeperPRO
                 Departament securityDepartament = entities.Departament.FirstOrDefault(x => x.Name_Departament == "Охрана");
                 if (employees.ID_Departament == commonDepartament.ID_Departament)
                 {
-                    MainFrame.Navigate(new pgCommonDepartament());
+                    MainFrame.Navigate(new PageCommonDepartament());
                 }
                 else if (employees.ID_Departament == securityDepartament.ID_Departament)
                 {

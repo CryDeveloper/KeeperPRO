@@ -9,12 +9,43 @@
       Title="PageCommonDepartament">
 
     <Grid>
-        <ListBox>
+        <ListBox Grid.ColumnSpan="4">
             <ListBoxItem>
                 <StackPanel>
-                    <TextBlock Text="Заявка №1" Style="{StaticResource HeadingText}"/>
-                    <TextBlock Text="Срок действия заявки"/>
+                    <TextBlock Text="Заявка №1" Style="{StaticResource HeadingText}" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Срок действия заявки"/>
+                            <TextBlock Text="Заявитель"/>
+                            <TextBlock Text="Цель посещения"/>
+                            <TextBlock Text="Телефон"/>
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Срок действия заявки"/>
+                            <TextBlock Text="Заявитель"/>
+                            <TextBlock Text="Цель посещения"/>
+                            <TextBlock Text="Телефон"/>
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Почта"/>
+                            <TextBlock Text="Организация"/>
+                            <TextBlock Text="Дата рождения"/>
+                            <TextBlock Text="Паспортные данные:"/>
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Почта"/>
+                            <TextBlock Text="Организация"/>
+                            <TextBlock Text="Дата рождения"/>
+                            <TextBlock Text="Паспортные данные:"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Подразделение"/>
+                        <TextBlock Text="ФИО сотрудника"/>
+                    </StackPanel>
+
                 </StackPanel>
+
             </ListBoxItem>
         </ListBox>
     </Grid>
