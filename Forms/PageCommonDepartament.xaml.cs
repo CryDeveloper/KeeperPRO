@@ -20,9 +20,13 @@ namespace KeeperPRO.Forms
     /// </summary>
     public partial class PageCommonDepartament : Page
     {
+
+        List<Application> applications;
         public PageCommonDepartament()
         {
             InitializeComponent();
+            applications = MainWindow.entities.Applications.ToList();
+            ListApplication.ItemsSource = applications;
         }
     }
 }

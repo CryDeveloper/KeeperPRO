@@ -9,44 +9,45 @@
       Title="PageCommonDepartament">
 
     <Grid>
-        <ListBox Grid.ColumnSpan="4">
-            <ListBoxItem>
-                <StackPanel>
-                    <TextBlock Text="Заявка №1" Style="{StaticResource HeadingText}" HorizontalAlignment="Left"/>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Margin="10">
-                            <TextBlock Text="Срок действия заявки"/>
-                            <TextBlock Text="Заявитель"/>
-                            <TextBlock Text="Цель посещения"/>
-                            <TextBlock Text="Телефон"/>
-                        </StackPanel>
-                        <StackPanel Margin="10">
-                            <TextBlock Text="{Binding DiscountApplication}"/>
-                            <TextBlock Text="{Binding FullName}"/>
-                            <TextBlock Text="{Binding Target}"/>
-                            <TextBlock Text="{Binding FullName}"/>
-                        </StackPanel>
-                        <StackPanel Margin="10">
-                            <TextBlock Text="Почта"/>
-                            <TextBlock Text="Организация"/>
-                            <TextBlock Text="Дата рождения"/>
-                            <TextBlock Text="Паспортные данные:"/>
-                        </StackPanel>
-                        <StackPanel Margin="10">
-                            <TextBlock Text="{Binding FullName}"/>
-                            <TextBlock Text="{Binding FullName}"/>
-                            <TextBlock Text="{Binding FullName}"/>
-                            <TextBlock Text="{Binding FullName}"/>
-                        </StackPanel>
-                    </StackPanel>
+        <ListBox x:Name="ListApplication">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="Подразделение"/>
-                        <TextBlock Text="ФИО сотрудника"/>
+                        <TextBlock Text="Заявка №1" Style="{StaticResource HeadingText}" HorizontalAlignment="Left"/>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Margin="10">
+                                <TextBlock Text="Срок действия заявки"/>
+                                <TextBlock Text="Заявитель"/>
+                                <TextBlock Text="Цель посещения"/>
+                                <TextBlock Text="Телефон"/>
+                            </StackPanel>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="{Binding DiscountApplication}"/>
+                                <TextBlock Text="{Binding FullnameVisitots}"/>
+                                <TextBlock Text="{Binding Target}"/>
+                                <TextBlock Text="{Binding Telephone}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="Почта"/>
+                                <TextBlock Text="Организация"/>
+                                <TextBlock Text="Дата рождения"/>
+                                <TextBlock Text="Паспортные данные:"/>
+                            </StackPanel>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="{Binding Email}"/>
+                                <TextBlock Text=" "/>
+                                <TextBlock Text="{Binding Birthday}"/>
+                                <TextBlock Text="{Binding Pasport}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="Подразделение"/>
+                            <TextBlock Text="ФИО сотрудника"/>
+                        </StackPanel>
+
                     </StackPanel>
-
-                </StackPanel>
-
-            </ListBoxItem>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </Page>

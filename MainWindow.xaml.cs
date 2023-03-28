@@ -21,7 +21,7 @@ namespace KeeperPRO
     /// </summary>
     public partial class MainWindow : Window
     {
-        ATaran_KII_DemExEntities entities;
+        public static ATaran_KII_DemExEntities entities;
         List<Employees> listEmployees;
         public MainWindow()
         {

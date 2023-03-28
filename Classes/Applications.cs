@@ -22,13 +22,5 @@ namespace KeeperPRO
             }
         }
 
-        public string FullName
-        {
-            get
-            {
-                //как получить здесь по id визитора его данные?
-                return Convert.ToString(ID_Visitors);
-            }
-        }
     }
 }
