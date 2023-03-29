@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KeeperPRO.Forms;
+using KeeperPRO.StaticClasses;
 
 namespace KeeperPRO
 {
@@ -51,7 +52,8 @@ namespace KeeperPRO
                 Departament securityDepartament = entities.Departament.FirstOrDefault(x => x.Name_Departament == "Охрана");
                 if (employees.ID_Departament == commonDepartament.ID_Departament)
                 {
-                    MainFrame.Navigate(new PageCommonDepartament());
+                    Frame.Navigate(new PageCommonDepartament());
+                    MainFrame.frame = Frame;
                 }
                 else if (employees.ID_Departament == securityDepartament.ID_Departament)
                 {

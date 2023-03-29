@@ -9,13 +9,29 @@
       Title="PageCommonDepartament">
 
     <Grid>
-        <ListBox x:Name="ListApplication">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="401*"/>
+            <ColumnDefinition Width="399*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Тип "/>
+            <ComboBox>
+                <ComboBoxItem>Индивидуальное</ComboBoxItem>
+                <ComboBoxItem>Групповое</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+        <ListBox x:Name="ListApplication" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="2" Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="Заявка №1" Style="{StaticResource HeadingText}" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding NumberApplication}" Style="{StaticResource HeadingText}" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding StatusApplication.Name_Status}"/>
                         <StackPanel Orientation="Horizontal">
-                            <StackPanel Margin="10">
+                            <StackPanel Margin="10" Grid.Column="1">
                                 <TextBlock Text="Срок действия заявки"/>
                                 <TextBlock Text="Заявитель"/>
                                 <TextBlock Text="Цель посещения"/>
@@ -23,9 +39,9 @@
                             </StackPanel>
                             <StackPanel Margin="10">
                                 <TextBlock Text="{Binding DiscountApplication}"/>
-                                <TextBlock Text="{Binding FullnameVisitots}"/>
+                                <TextBlock Text="{Binding Visitors.FullnameVisitots}"/> <!--parseClass - связь между таблицами т.к. они связаны-->
                                 <TextBlock Text="{Binding Target}"/>
-                                <TextBlock Text="{Binding Telephone}"/>
+                                <TextBlock Text="{Binding Visitors.Telephone}"/>
                             </StackPanel>
                             <StackPanel Margin="10">
                                 <TextBlock Text="Почта"/>
@@ -34,17 +50,22 @@
                                 <TextBlock Text="Паспортные данные:"/>
                             </StackPanel>
                             <StackPanel Margin="10">
-                                <TextBlock Text="{Binding Email}"/>
+                                <TextBlock Text="{Binding Visitors.Email}"/>
                                 <TextBlock Text=" "/>
-                                <TextBlock Text="{Binding Birthday}"/>
-                                <TextBlock Text="{Binding Pasport}"/>
+                                <TextBlock Text="{Binding Visitors.Birthday}"/>
+                                <TextBlock Text="{Binding Visitors.Pasport}"/>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel>
-                            <TextBlock Text="Подразделение"/>
-                            <TextBlock Text="ФИО сотрудника"/>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel>
+                                <TextBlock Text="Подразделение"/>
+                                <TextBlock Text="ФИО сотрудника"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Division.Name_Division}"/>
+                                <TextBlock Text="{Binding Employees.FullnameEmploye}"/>
+                            </StackPanel>
                         </StackPanel>
-
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

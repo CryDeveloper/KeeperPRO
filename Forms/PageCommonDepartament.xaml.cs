@@ -21,12 +21,10 @@ namespace KeeperPRO.Forms
     public partial class PageCommonDepartament : Page
     {
 
-        List<Application> applications;
         public PageCommonDepartament()
         {
             InitializeComponent();
-            applications = MainWindow.entities.Applications.ToList();
-            ListApplication.ItemsSource = applications;
+            ListApplication.ItemsSource = BaseConnect.baseModel.Applications.ToList();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace KeeperPRO
 {
     public partial class Applications
     {
-        public string NumberApplication => "Заявка № " + ID_Application;
+        public string NumberApplication => "Заявка № " + ID_Application.ToString();
         public string DiscountApplication
         {
             get
@@ -21,6 +21,12 @@ namespace KeeperPRO
                 return x;
             }
         }
-
+        public string FIO
+        {
+            get
+            {
+                return Visitors.FullnameVisitots;//
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace KeeperPRO
 {
     public partial class Visitors
     {
-        public string FullnameVisitots => Surname + " " + Firstname + " " + Patronymic;
+        public string FullnameVisitots => Firstname + " " + Surname + " " + Patronymic;
         public string Pasport => Seria.ToString() + Number.ToString();
     }
 }
