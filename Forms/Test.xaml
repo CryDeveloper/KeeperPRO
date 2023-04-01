@@ -1,0 +1,77 @@
+﻿<Window x:Class="KeeperPRO.Forms.Test"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KeeperPRO.Forms"
+        mc:Ignorable="d"
+        Title="Test" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="ХранительПРО" Style="{StaticResource HeadingText}" Grid.Row="0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <StackPanel Margin="10">
+                <TextBlock Text="Дата и время посещения"/>
+                <TextBlock Text="Статус заявки"/>
+                <TextBlock Text="Заявитель"/>
+                <TextBlock Text="Цель посещения"/>
+                <TextBlock Text="Телефон"/>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <DatePicker x:Name="dpDateVisit" Text="{Binding DiscountApplication,Mode=TwoWay}"/>
+                <ComboBox x:Name="cbStatus" SelectedValue="{Binding ID_Status,Mode=TwoWay}"/>
+                <TextBlock Text="{Binding Visitors.FullnameVisitots}"/>
+                <!--parseClass - связь между таблицами т.к. они связаны-->
+                <TextBlock Text="{Binding Target}"/>
+                <TextBlock Text="{Binding Visitors.Telephone}"/>
+             </StackPanel>
+            <StackPanel Margin="10">
+                <Button Click="Button_Click">Подтвердить дату</Button>
+            </StackPanel>
+        </StackPanel>
+        <!--<Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="ХранительПРО" Style="{StaticResource HeadingText}" Grid.Row="0"/>
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Дата и время посещения"/>
+                        <TextBlock Text="Статус заявки"/>
+                        <TextBlock Text="Заявитель"/>
+                        <TextBlock Text="Цель посещения"/>
+                        <TextBlock Text="Телефон"/>
+                    </StackPanel>
+                    <StackPanel Margin="10">
+                        <TextBox Text="{Binding DiscountApplication}"/>
+                        <TextBlock Text="{Binding StatusApplication.Name_Status}" Foreground="Orange"/>
+                        <TextBlock Text="{Binding Visitors.FullnameVisitots}"/>-->
+                        <!--parseClass - связь между таблицами т.к. они связаны--><!--
+                        <TextBlock Text="{Binding Target}"/>
+                        <TextBlock Text="{Binding Visitors.Telephone}"/>
+                    </StackPanel>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Почта"/>
+                        <TextBlock Text="Организация"/>
+                        <TextBlock Text="Дата рождения"/>
+                        <TextBlock Text="Паспортные данные:"/>
+                        <TextBlock Text="Подразделение"/>
+                        <TextBlock Text="ФИО сотрудника"/>
+                    </StackPanel>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="{Binding Visitors.Email}"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Visitors.Birthday}"/>
+                        <TextBlock Text="{Binding Visitors.Pasport}"/>
+                        <TextBlock Text="{Binding Division.Name_Division}"/>
+                        <TextBlock Text="{Binding Employees.FullnameEmploye}"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+      -->
+    </Grid>
+</Window>

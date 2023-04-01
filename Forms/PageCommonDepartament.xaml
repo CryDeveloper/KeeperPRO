@@ -5,31 +5,41 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:KeeperPRO.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="950"
       Title="PageCommonDepartament">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="401*"/>
-            <ColumnDefinition Width="399*"/>
+            <ColumnDefinition Width="1.0*"/>
+            <ColumnDefinition Width="1.0*"/>
+            <ColumnDefinition Width="1.0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Center">
             <TextBlock Text="Тип "/>
-            <ComboBox>
+            <ComboBox x:Name="cbVisits" SelectionChanged="ComboBox_SelectionChanged1">
+                <ComboBoxItem>По умолчанию</ComboBoxItem>
                 <ComboBoxItem>Индивидуальное</ComboBoxItem>
                 <ComboBoxItem>Групповое</ComboBoxItem>
             </ComboBox>
+            <TextBlock Text="Подразделение "/>
+            <ComboBox x:Name="cbDivision" SelectionChanged="ComboBox_SelectionChanged1"></ComboBox>
+            <TextBlock Text="Статус заявки "/>
+            <ComboBox x:Name="cbStatus" SelectionChanged="ComboBox_SelectionChanged1" ></ComboBox>
         </StackPanel>
-        <ListBox x:Name="ListApplication" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="2" Grid.ColumnSpan="2">
+        <ListBox x:Name="ListApplication" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 Grid.Row="1" Grid.ColumnSpan="3">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding NumberApplication}" Style="{StaticResource HeadingText}" HorizontalAlignment="Left"/>
-                        <TextBlock Text="{Binding StatusApplication.Name_Status}"/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"  Grid.ColumnSpan="3">
+                            <TextBlock Text="{Binding NumberApplication}" Style="{StaticResource HeadingText}" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding StatusApplication.Name_Status,Mode=TwoWay}" Foreground="Orange"/>
+                            <Button Click="btnNestApplication_Click" x:Name="btnNestApplication" HorizontalAlignment="Center" VerticalAlignment="Center" Tag="{Binding ID_Application}">Проверить заявку</Button>
+                        </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Margin="10" Grid.Column="1">
                                 <TextBlock Text="Срок действия заявки"/>
@@ -39,11 +49,12 @@
                             </StackPanel>
                             <StackPanel Margin="10">
                                 <TextBlock Text="{Binding DiscountApplication}"/>
-                                <TextBlock Text="{Binding Visitors.FullnameVisitots}"/> <!--parseClass - связь между таблицами т.к. они связаны-->
+                                <TextBlock Text="{Binding Visitors.FullnameVisitots}"/>
+                                <!--parseClass - связь между таблицами т.к. они связаны-->
                                 <TextBlock Text="{Binding Target}"/>
                                 <TextBlock Text="{Binding Visitors.Telephone}"/>
                             </StackPanel>
-                            <StackPanel Margin="10">
+                            <StackPanel Margin="10" Grid.Column="2">
                                 <TextBlock Text="Почта"/>
                                 <TextBlock Text="Организация"/>
                                 <TextBlock Text="Дата рождения"/>
@@ -55,17 +66,24 @@
                                 <TextBlock Text="{Binding Visitors.Birthday}"/>
                                 <TextBlock Text="{Binding Visitors.Pasport}"/>
                             </StackPanel>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel>
+                            <StackPanel Margin="10" Grid.Column="3">
                                 <TextBlock Text="Подразделение"/>
                                 <TextBlock Text="ФИО сотрудника"/>
                             </StackPanel>
-                            <StackPanel>
+                            <StackPanel Margin="10">
                                 <TextBlock Text="{Binding Division.Name_Division}"/>
                                 <TextBlock Text="{Binding Employees.FullnameEmploye}"/>
                             </StackPanel>
                         </StackPanel>
+                        <ListBox x:Name="ListVisitorIngroup" Visibility="Visible" ItemsSource="{Binding visitorsGroup}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding FullnameVisitots}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

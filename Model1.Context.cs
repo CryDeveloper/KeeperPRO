@@ -31,6 +31,7 @@ namespace KeeperPRO
         public virtual DbSet<Division> Division { get; set; }
         public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<Groups> Groups { get; set; }
+        public virtual DbSet<StatusApplication> StatusApplication { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Visitors> Visitors { get; set; }
         public virtual DbSet<Visits> Visits { get; set; }

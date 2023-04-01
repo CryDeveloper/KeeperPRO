@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace KeeperPRO
 {
@@ -20,12 +21,34 @@ namespace KeeperPRO
                 }
                 return x;
             }
+            set 
+            {    
+                   Start_Date = Convert.ToDateTime(value);                 
+            }
         }
         public string FIO
         {
             get
             {
                 return Visitors.FullnameVisitots;//
+            }
+        }
+
+        public List<Visitors> visitorsGroup
+        {
+            get
+            {
+                if(ID_Group == null)
+                {
+                    return null;
+                }
+                List<Visits> visits = BaseConnect.baseModel.Visits.Where(x => x.ID_Group == ID_Group).ToList();
+                List<Visitors> visitors = new List<Visitors>();
+                foreach (Visits item in visits)
+                {
+                    visitors.Add(BaseConnect.baseModel.Visitors.FirstOrDefault(x => x.ID_Visitor == item.ID_Visitor));
+                }
+                return visitors.ToList();
             }
         }
     }

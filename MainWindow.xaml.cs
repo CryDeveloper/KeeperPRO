@@ -29,7 +29,6 @@ namespace KeeperPRO
             InitializeComponent();
             entities = new ATaran_KII_DemExEntities();
             listEmployees = entities.Employees.ToList();
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
