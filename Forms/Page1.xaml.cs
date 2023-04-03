@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +25,34 @@ namespace KeeperPRO.Forms
         {
             InitializeComponent();
             session4.ItemsSource = BaseConnect.baseModel.Users.ToList();
+            //List<KeeperPRO.TypeUser> alType = BaseConnect.baseModel.TypeUser.ToList();
+            //List<string> result = new List<string>();
+            //foreach (var item in alType)
+            //{
+            //    result.Add(item.TypeUser1);
+            //}
+            //  typeUserCombo.ItemsSource = result;
+        }
+
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var b = BaseConnect.baseModel.Users.ToList();
+            BaseConnect.baseModel.SaveChanges();
+            MessageBox.Show("Одобрили");
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            int id = (int)comboBox.Tag;
+            Users users = BaseConnect.baseModel.Users.FirstOrDefault(x=>x.ID == id);
+            users.ID_TypeUser = comboBox.SelectedIndex+1;
+           // MessageBox.Show(comboBox.SelectedItem.ToString());
         }
     }
 }

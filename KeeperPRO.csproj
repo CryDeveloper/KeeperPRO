@@ -74,6 +74,7 @@
     <Compile Include="Classes\Applications.cs" />
     <Compile Include="Classes\Division.cs" />
     <Compile Include="Classes\Employees.cs" />
+    <Compile Include="Classes\TypeUser.cs" />
     <Compile Include="Forms\Page1.xaml.cs">
       <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>

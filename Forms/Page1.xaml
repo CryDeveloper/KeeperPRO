@@ -9,20 +9,27 @@
       Title="Page1">
 
     <Grid>
-        <DataGrid x:Name="session4">
-            <DataTemplate>
+        <Grid.Resources>
+            <DataTemplate x:Key="DataTemp">
+                <ComboBox ItemsSource="{Binding TypeUser.AlType}"  SelectedIndex="{Binding Name,Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged" Tag="{Binding ID}" />
+            </DataTemplate>
+        </Grid.Resources>
+        
+        <DataGrid AutoGenerateColumns="False" x:Name="session4">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding FIO}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Имя"></DataGridTextColumn>
                 <DataGridTextColumn Header="Отчество"></DataGridTextColumn>
                 <DataGridTextColumn Header="Должность" Binding="{Binding Posts.Post}"></DataGridTextColumn>
-                <DataGridComboBoxColumn Header="Тип пользователя"/>
+                <!--<DataGridComboBoxColumn Header="Тип пользователя" x:Name="typeUserCombo" SelectedValueBinding="{Binding ID_TypeUser,Mode=TwoWay}"/>-->
+                <DataGridTemplateColumn Header="Тип пользователя" CellTemplate="{StaticResource DataTemp}" >
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Логин"></DataGridTextColumn>
                 <DataGridTextColumn Header="Пароль"></DataGridTextColumn>
                 <DataGridTextColumn Header="Секретное слово"></DataGridTextColumn>
                 <DataGridCheckBoxColumn Header="Одобрить"/>
             </DataGrid.Columns>
-            </DataTemplate>
         </DataGrid>
+        <Button Width="100" Height="20" Click="Button_Click">Одобрить</Button>
     </Grid>
 </Page>
