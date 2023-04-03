@@ -36,5 +36,9 @@ namespace KeeperPRO
         public virtual DbSet<Visitors> Visitors { get; set; }
         public virtual DbSet<Visits> Visits { get; set; }
         public virtual DbSet<BlackList> BlackList { get; set; }
+        public virtual DbSet<Genders> Genders { get; set; }
+        public virtual DbSet<Posts> Posts { get; set; }
+        public virtual DbSet<TypeUser> TypeUser { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

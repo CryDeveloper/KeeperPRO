@@ -9,6 +9,91 @@
       Title="PageSecurityDepartment">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.0*"/>
+            <ColumnDefinition Width="1.0*"/>
+            <ColumnDefinition Width="1.0*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Center">
+            <TextBlock Text="Поиск: " Margin="5,0,5,0"/>
+            <TextBox x:Name="Search" Width="200" Margin="0,0,100,0" TextChanged="Search_TextChanged" />
+            <TextBlock Text="Тип " Margin="5,0,5,0"/>
+            <ComboBox x:Name="cbVisits" SelectionChanged="ComboBox_SelectionChanged1">
+                <ComboBoxItem>По умолчанию</ComboBoxItem>
+                <ComboBoxItem>Индивидуальное</ComboBoxItem>
+                <ComboBoxItem>Групповое</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Text="Подразделение " Margin="5,0,5,0"/>
+            <ComboBox x:Name="cbDivision" SelectionChanged="ComboBox_SelectionChanged1"></ComboBox>
+            <TextBlock Text="Дата: " Margin="5,0,5,0"/>
+            <ComboBox x:Name="cbDate" SelectionChanged="ComboBox_SelectionChanged1">
+                <ComboBoxItem>По умолчанию</ComboBoxItem>
+                <ComboBoxItem>По возрастанию</ComboBoxItem>
+                <ComboBoxItem>По убыванию</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+        <ListBox x:Name="ListApplication" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 Grid.Row="1" Grid.ColumnSpan="3">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"  Grid.ColumnSpan="3">
+                            <TextBlock Text="{Binding NumberApplication}" Style="{StaticResource HeadingText}" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding StatusApplication.Name_Status,Mode=TwoWay}" Foreground="Orange"/>
+                            <Button x:Name="btnEntry" Click="btnEntry_Click">Вход</Button>
+                            <Button x:Name="btnExit" Click="btnExit_Click">Выход</Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Margin="10" Grid.Column="1">
+                                <TextBlock Text="Срок действия заявки"/>
+                                <TextBlock Text="Заявитель"/>
+                                <TextBlock Text="Цель посещения"/>
+                                <TextBlock Text="Телефон"/>
+                            </StackPanel>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="{Binding DiscountApplication}"/>
+                                <TextBlock Text="{Binding Visitors.FullnameVisitots}"/>
+                                <!--parseClass - связь между таблицами т.к. они связаны-->
+                                <TextBlock Text="{Binding Target}"/>
+                                <TextBlock Text="{Binding Visitors.Telephone}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10" Grid.Column="2">
+                                <TextBlock Text="Почта"/>
+                                <TextBlock Text="Организация"/>
+                                <TextBlock Text="Дата рождения"/>
+                                <TextBlock Text="Паспортные данные:"/>
+                            </StackPanel>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="{Binding Visitors.Email}"/>
+                                <TextBlock Text=" "/>
+                                <TextBlock Text="{Binding Visitors.Birthday}"/>
+                                <TextBlock Text="{Binding Visitors.Pasport}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10" Grid.Column="3">
+                                <TextBlock Text="Подразделение"/>
+                                <TextBlock Text="ФИО сотрудника"/>
+                            </StackPanel>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="{Binding Division.Name_Division}"/>
+                                <TextBlock Text="{Binding Employees.FullnameEmploye}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <ListBox x:Name="ListVisitorIngroup" Visibility="Visible" ItemsSource="{Binding visitorsGroup}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding FullnameVisitots}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>

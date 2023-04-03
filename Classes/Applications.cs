@@ -23,7 +23,7 @@ namespace KeeperPRO
             }
             set 
             {    
-                   Start_Date = Convert.ToDateTime(value);                 
+                   Start_Date = Convert.ToDateTime(value);
             }
         }
         public string FIO

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KeeperPRO.StaticClasses;
 
 namespace KeeperPRO.Forms
 {
@@ -28,7 +29,6 @@ namespace KeeperPRO.Forms
             InitializeComponent();
             entities = new ATaran_KII_DemExEntities();
             listEmployees = entities.Employees.ToList();
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -51,11 +51,11 @@ namespace KeeperPRO.Forms
                 Departament securityDepartament = entities.Departament.FirstOrDefault(x => x.Name_Departament == "Охрана");
                 if (employees.ID_Departament == commonDepartament.ID_Departament)
                 {
-                    
+                    MainFrame.frame.Navigate(new PageCommonDepartament());
                 }
                 else if (employees.ID_Departament == securityDepartament.ID_Departament)
                 {
-                    MessageBox.Show("Охрана");
+                    MainFrame.frame.Navigate(new PageSecurityDepartment());
                 }
                 else
                 {

@@ -28,6 +28,13 @@
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Groups" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_BlackList_Visitors" />
         <AssociationConnector Association="ATaran_KII_DemExModel.FK_Visits_Visitors" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Genders" Width="1.5" PointX="8.375" PointY="1.75" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Posts" Width="1.5" PointX="8.375" PointY="4.875" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.TypeUser" Width="1.5" PointX="8.375" PointY="7.25" />
+        <EntityTypeShape EntityType="ATaran_KII_DemExModel.Users" Width="1.5" PointX="10.625" PointY="1" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Users_Genders" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Users_Posts" />
+        <AssociationConnector Association="ATaran_KII_DemExModel.FK_Users_TypeUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

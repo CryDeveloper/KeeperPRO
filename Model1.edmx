@@ -62,12 +62,26 @@
           <Property Name="ID_Departament" Type="int" />
           <Property Name="Code_Employee" Type="int" />
         </EntityType>
+        <EntityType Name="Genders">
+          <Key>
+            <PropertyRef Name="ID_Gender" />
+          </Key>
+          <Property Name="ID_Gender" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="Groups">
           <Key>
             <PropertyRef Name="ID_Group" />
           </Key>
           <Property Name="ID_Group" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameGroup" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="ID_Post" />
+          </Key>
+          <Property Name="ID_Post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Post" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="StatusApplication">
           <Key>
@@ -85,6 +99,26 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TypeUser">
+          <Key>
+            <PropertyRef Name="ID_TypeUser" />
+          </Key>
+          <Property Name="ID_TypeUser" Type="int" Nullable="false" />
+          <Property Name="TypeUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="150" />
+          <Property Name="ID_Gender" Type="int" />
+          <Property Name="ID_Post" Type="int" />
+          <Property Name="ID_TypeUser" Type="int" />
+          <Property Name="SecretWord" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Visitors">
           <Key>
@@ -218,6 +252,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Genders">
+          <End Role="Genders" Type="Self.Genders" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genders">
+              <PropertyRef Name="ID_Gender" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ID_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="ID_Post" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_TypeUser">
+          <End Role="TypeUser" Type="Self.TypeUser" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeUser">
+              <PropertyRef Name="ID_TypeUser" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ID_TypeUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Visits_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
           <End Role="Visits" Type="Self.Visits" Multiplicity="*" />
@@ -260,9 +330,13 @@
           <EntitySet Name="Departament" EntityType="Self.Departament" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genders" EntityType="Self.Genders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusApplication" EntityType="Self.StatusApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeUser" EntityType="Self.TypeUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visitors" EntityType="Self.Visitors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visits" EntityType="Self.Visits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BlackList" EntityType="Self.BlackList" store:Type="Tables" store:Schema="dbo">
@@ -305,6 +379,18 @@
           <AssociationSet Name="FK_Employees_Division" Association="Self.FK_Employees_Division">
             <End Role="Division" EntitySet="Division" />
             <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Genders" Association="Self.FK_Users_Genders">
+            <End Role="Genders" EntitySet="Genders" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Posts" Association="Self.FK_Users_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_TypeUser" Association="Self.FK_Users_TypeUser">
+            <End Role="TypeUser" EntitySet="TypeUser" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_Visits_Employees" Association="Self.FK_Visits_Employees">
             <End Role="Employees" EntitySet="Employees" />
@@ -382,6 +468,22 @@
           <AssociationSet Name="FK_Visits_Visitors" Association="ATaran_KII_DemExModel.FK_Visits_Visitors">
             <End Role="Visitors" EntitySet="Visitors" />
             <End Role="Visits" EntitySet="Visits" />
+          </AssociationSet>
+          <EntitySet Name="Genders" EntityType="ATaran_KII_DemExModel.Genders" />
+          <EntitySet Name="Posts" EntityType="ATaran_KII_DemExModel.Posts" />
+          <EntitySet Name="TypeUser" EntityType="ATaran_KII_DemExModel.TypeUser" />
+          <EntitySet Name="Users" EntityType="ATaran_KII_DemExModel.Users" />
+          <AssociationSet Name="FK_Users_Genders" Association="ATaran_KII_DemExModel.FK_Users_Genders">
+            <End Role="Genders" EntitySet="Genders" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Posts" Association="ATaran_KII_DemExModel.FK_Users_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_TypeUser" Association="ATaran_KII_DemExModel.FK_Users_TypeUser">
+            <End Role="TypeUser" EntitySet="TypeUser" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Applications">
@@ -655,6 +757,82 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Genders">
+          <Key>
+            <PropertyRef Name="ID_Gender" />
+          </Key>
+          <Property Name="ID_Gender" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="ATaran_KII_DemExModel.FK_Users_Genders" FromRole="Genders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="ID_Post" />
+          </Key>
+          <Property Name="ID_Post" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Post" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="ATaran_KII_DemExModel.FK_Users_Posts" FromRole="Posts" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="TypeUser">
+          <Key>
+            <PropertyRef Name="ID_TypeUser" />
+          </Key>
+          <Property Name="ID_TypeUser" Type="Int32" Nullable="false" />
+          <Property Name="TypeUser1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="ATaran_KII_DemExModel.FK_Users_TypeUser" FromRole="TypeUser" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Gender" Type="Int32" />
+          <Property Name="ID_Post" Type="Int32" />
+          <Property Name="ID_TypeUser" Type="Int32" />
+          <Property Name="SecretWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Genders" Relationship="ATaran_KII_DemExModel.FK_Users_Genders" FromRole="Users" ToRole="Genders" />
+          <NavigationProperty Name="Posts" Relationship="ATaran_KII_DemExModel.FK_Users_Posts" FromRole="Users" ToRole="Posts" />
+          <NavigationProperty Name="TypeUser" Relationship="ATaran_KII_DemExModel.FK_Users_TypeUser" FromRole="Users" ToRole="TypeUser" />
+        </EntityType>
+        <Association Name="FK_Users_Genders">
+          <End Type="ATaran_KII_DemExModel.Genders" Role="Genders" Multiplicity="0..1" />
+          <End Type="ATaran_KII_DemExModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genders">
+              <PropertyRef Name="ID_Gender" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ID_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Posts">
+          <End Type="ATaran_KII_DemExModel.Posts" Role="Posts" Multiplicity="0..1" />
+          <End Type="ATaran_KII_DemExModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="ID_Post" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_TypeUser">
+          <End Type="ATaran_KII_DemExModel.TypeUser" Role="TypeUser" Multiplicity="0..1" />
+          <End Type="ATaran_KII_DemExModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeUser">
+              <PropertyRef Name="ID_TypeUser" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ID_TypeUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -772,6 +950,44 @@
             <EntityTypeMapping TypeName="ATaran_KII_DemExModel.BlackList">
               <MappingFragment StoreEntitySet="BlackList">
                 <ScalarProperty Name="ID_Visitor" ColumnName="ID_Visitor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Genders">
+              <MappingFragment StoreEntitySet="Genders">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ID_Gender" ColumnName="ID_Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Posts">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeUser">
+            <EntityTypeMapping TypeName="ATaran_KII_DemExModel.TypeUser">
+              <MappingFragment StoreEntitySet="TypeUser">
+                <ScalarProperty Name="TypeUser1" ColumnName="TypeUser" />
+                <ScalarProperty Name="ID_TypeUser" ColumnName="ID_TypeUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ATaran_KII_DemExModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="SecretWord" ColumnName="SecretWord" />
+                <ScalarProperty Name="ID_TypeUser" ColumnName="ID_TypeUser" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
+                <ScalarProperty Name="ID_Gender" ColumnName="ID_Gender" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

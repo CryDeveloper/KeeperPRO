@@ -5,15 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:KeeperPRO.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1050"
       Title="AuthorizationPage">
 
     <Grid  VerticalAlignment="Center" HorizontalAlignment="Center">
-        <StackPanel Orientation="Vertical">
-            <TextBlock Text="Авторизация" HorizontalAlignment="Center" Margin="10"/>
-            <TextBlock Text="Введите код сотрудника" Margin="5"/>
-            <TextBox x:Name="tbCodeEmployee"></TextBox>
-            <Button Content="Авторизоваться" Margin="5" Click="Button_Click"/>
+        <StackPanel Orientation="Vertical" >
+            <TextBlock Text="Авторизация" Style="{StaticResource HeadingText}" />
+            <TextBlock Text="Введите код сотрудника" Margin="5" HorizontalAlignment="Center"/>
+            <TextBox x:Name="tbCodeEmployee"/>
+            <Button Content="Авторизоваться" Margin="5" Click="Button_Click" IsDefault="True"/>
         </StackPanel>
     </Grid>
 </Page>

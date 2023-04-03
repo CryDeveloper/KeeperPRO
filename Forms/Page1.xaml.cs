@@ -12,21 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using KeeperPRO.Forms;
-using KeeperPRO.StaticClasses;
 
-namespace KeeperPRO
+namespace KeeperPRO.Forms
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для Page1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Page1 : Page
     {
-        public MainWindow()
+        public Page1()
         {
             InitializeComponent();
-            MainFrame.frame = Frame;
-            MainFrame.frame.Navigate(new Page1());  
+            session4.ItemsSource = BaseConnect.baseModel.Users.ToList();
         }
     }
 }

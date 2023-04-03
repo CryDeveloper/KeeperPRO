@@ -74,6 +74,12 @@
     <Compile Include="Classes\Applications.cs" />
     <Compile Include="Classes\Division.cs" />
     <Compile Include="Classes\Employees.cs" />
+    <Compile Include="Forms\Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PageSecurityDepartment.xaml.cs">
+      <DependentUpon>PageSecurityDepartment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
@@ -96,12 +102,18 @@
     <Compile Include="Forms\PageCommonDepartament.xaml.cs">
       <DependentUpon>PageCommonDepartament.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Genders.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Groups.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Posts.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="StaticClasses\MainFrame.cs" />
@@ -111,12 +123,26 @@
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="TypeUser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Visitors.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Visits.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Page Include="Forms\Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\PageSecurityDepartment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
